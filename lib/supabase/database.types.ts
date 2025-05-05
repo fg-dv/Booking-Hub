@@ -1,0 +1,225 @@
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+
+export interface Database {
+  public: {
+    Tables: {
+      profiles: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          full_name: string | null
+          avatar_url: string | null
+          role: "user" | "professional"
+          phone: string | null
+          location: string | null
+        }
+        Insert: {
+          id: string
+          created_at?: string
+          updated_at?: string
+          full_name?: string | null
+          avatar_url?: string | null
+          role: "user" | "professional"
+          phone?: string | null
+          location?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          full_name?: string | null
+          avatar_url?: string | null
+          role?: "user" | "professional"
+          phone?: string | null
+          location?: string | null
+        }
+      }
+      professionals: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+          specialty: string
+          description: string | null
+          education: string[] | null
+          rating: number | null
+          reviews_count: number | null
+          price_per_hour: number | null
+          categories: string[] | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+          specialty: string
+          description?: string | null
+          education?: string[] | null
+          rating?: number | null
+          reviews_count?: number | null
+          price_per_hour?: number | null
+          categories?: string[] | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+          specialty?: string
+          description?: string | null
+          education?: string[] | null
+          rating?: number | null
+          reviews_count?: number | null
+          price_per_hour?: number | null
+          categories?: string[] | null
+        }
+      }
+      services: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          professional_id: string
+          name: string
+          description: string | null
+          duration: number
+          price: number
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          professional_id: string
+          name: string
+          description?: string | null
+          duration: number
+          price: number
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          professional_id?: string
+          name?: string
+          description?: string | null
+          duration?: number
+          price?: number
+        }
+      }
+      time_slots: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          professional_id: string
+          date: string
+          start_time: string
+          end_time: string
+          is_available: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          professional_id: string
+          date: string
+          start_time: string
+          end_time: string
+          is_available: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          professional_id?: string
+          date?: string
+          start_time?: string
+          end_time?: string
+          is_available?: boolean
+        }
+      }
+      bookings: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+          professional_id: string
+          service_id: string
+          time_slot_id: string
+          status: "pending" | "confirmed" | "cancelled" | "completed"
+          notes: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+          professional_id: string
+          service_id: string
+          time_slot_id: string
+          status?: "pending" | "confirmed" | "cancelled" | "completed"
+          notes?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+          professional_id?: string
+          service_id?: string
+          time_slot_id?: string
+          status?: "pending" | "confirmed" | "cancelled" | "completed"
+          notes?: string | null
+        }
+      }
+      reviews: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+          professional_id: string
+          booking_id: string
+          rating: number
+          comment: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+          professional_id: string
+          booking_id: string
+          rating: number
+          comment?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+          professional_id?: string
+          booking_id?: string
+          rating?: number
+          comment?: string | null
+        }
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+  }
+}
+
+export type Tables<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Row"]
+export type Insertable<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Insert"]
+export type Updatable<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Update"]
